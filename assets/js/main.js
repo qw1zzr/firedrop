@@ -1,7 +1,6 @@
 const MAX_FILE_SIZE =
     30 * 1024 * 1024;
 
-
 const keyStatus =
     document.getElementById("keyStatus");
 
@@ -32,7 +31,6 @@ const showToken =
 const multiToggle =
     document.getElementById("multiToggle");
 
-
 const uploadArea =
     document.getElementById("uploadArea");
 
@@ -54,8 +52,6 @@ const resultSection =
 const resultList =
     document.getElementById("resultList");
 
-
-
 let selectedFiles = [];
 
 let multiUpload = false;
@@ -70,25 +66,7 @@ let tokenRequestId = 0;
 
 let uploading = false;
 
-
-
-
-
-/*
-    INITIAL STATE
-*/
-
-
 disableUpload();
-
-
-
-
-
-/*
-    FILE PICKER
-*/
-
 
 attachBtn.addEventListener(
 "click",
@@ -100,12 +78,9 @@ attachBtn.addEventListener(
 
     }
 
-
     fileInput.click();
 
 });
-
-
 
 fileInput.addEventListener(
 "change",
@@ -117,21 +92,11 @@ fileInput.addEventListener(
 
 });
 
-
-
-
-
-/*
-    DRAG & DROP
-*/
-
-
 dropZone.addEventListener(
 "dragover",
 (event) => {
 
     event.preventDefault();
-
 
     if(!uploading){
 
@@ -143,8 +108,6 @@ dropZone.addEventListener(
 
 });
 
-
-
 dropZone.addEventListener(
 "dragleave",
 () => {
@@ -155,26 +118,21 @@ dropZone.addEventListener(
 
 });
 
-
-
 dropZone.addEventListener(
 "drop",
 (event) => {
 
     event.preventDefault();
 
-
     dropZone.classList.remove(
         "dragging"
     );
-
 
     if(uploading){
 
         return;
 
     }
-
 
     handleFiles(
         event.dataTransfer.files
@@ -182,19 +140,9 @@ dropZone.addEventListener(
 
 });
 
-
-
-
-
-/*
-    MULTI UPLOAD
-*/
-
-
 multiToggle.addEventListener(
 "click",
 () => {
-
 
     if(uploading){
 
@@ -202,24 +150,16 @@ multiToggle.addEventListener(
 
     }
 
-
-
     multiUpload =
         !multiUpload;
-
-
 
     multiToggle.classList.toggle(
         "active",
         multiUpload
     );
 
-
-
     fileInput.multiple =
         multiUpload;
-
-
 
     if(
         !multiUpload &&
@@ -230,30 +170,16 @@ multiToggle.addEventListener(
             selectedFiles[0]
         ];
 
-
         updateFileText();
 
     }
 
-
 });
-
-
-
-
-
-/*
-    FILE HANDLING
-*/
-
 
 function handleFiles(files){
 
-
     const incoming =
         Array.from(files);
-
-
 
     if(incoming.length === 0){
 
@@ -261,118 +187,77 @@ function handleFiles(files){
 
     }
 
-
-
     const oversizedFile =
         incoming.find(
             file =>
                 file.size > MAX_FILE_SIZE
         );
 
-
-
     if(oversizedFile){
-
 
         showError(
             "Files over 30 MB are not supported."
         );
 
-
         return;
 
     }
 
-
-
     if(multiUpload){
-
 
         selectedFiles.push(
             ...incoming
         );
 
-
     }
 
     else {
-
 
         selectedFiles = [
             incoming[0]
         ];
 
-
     }
-
-
 
     updateFileText();
 
     hideError();
 
-
 }
-
-
-
-
 
 function updateFileText(){
 
-
     if(selectedFiles.length === 0){
-
 
         fileInfo.textContent =
             "No files selected";
-
 
         return;
 
     }
 
-
-
     if(selectedFiles.length === 1){
-
 
         fileInfo.textContent =
             selectedFiles[0].name;
-
 
     }
 
     else {
 
-
         fileInfo.textContent =
             `${selectedFiles.length} files selected`;
 
-
     }
 
-
 }
-
-
-
-
-
-/*
-    TOKEN CHECK
-*/
-
 
 tokenInput.addEventListener(
 "input",
 () => {
 
-
     let value =
         tokenInput.value;
-
-
 
     value = value
         .replaceAll(
@@ -381,31 +266,20 @@ tokenInput.addEventListener(
         )
         .trim();
 
-
-
     tokenInput.value =
         value;
 
-
-
     tokenValid = false;
-
 
     disableUpload();
 
-
     hideKeyStatus();
-
 
     clearTimeout(
         tokenTimer
     );
 
-
-
     tokenRequestId++;
-
-
 
     if(value.length < 18){
 
@@ -413,31 +287,22 @@ tokenInput.addEventListener(
 
     }
 
-
-
     const requestId =
         tokenRequestId;
-
-
 
     tokenTimer =
         setTimeout(
         async () => {
 
-
             const fullToken =
                 "github_pat_" +
                 value;
-
-
 
             const result =
                 await checkToken(
                     fullToken
                 );
 
-
-
             if(
                 requestId !==
                 tokenRequestId
@@ -447,36 +312,26 @@ tokenInput.addEventListener(
 
             }
 
-
-
             if(!result.valid){
 
-
                 tokenValid = false;
-
 
                 showKeyStatus(
                     "Invalid key!",
                     false
                 );
 
-
                 disableUpload();
-
 
                 return;
 
             }
-
-
 
             const storage =
                 await checkStorageAccess(
                     fullToken
                 );
 
-
-
             if(
                 requestId !==
                 tokenRequestId
@@ -486,61 +341,39 @@ tokenInput.addEventListener(
 
             }
 
-
-
             tokenValid =
                 storage.accessible &&
                 storage.writable;
 
-
-
             if(tokenValid){
-
 
                 showKeyStatus(
                     "Valid key!",
                     true
                 );
 
-
                 enableUpload();
-
 
             }
 
             else {
-
 
                 showKeyStatus(
                     "Invalid key!",
                     false
                 );
 
-
                 disableUpload();
 
-
             }
-
 
         },
         700
     );
 
-
 });
 
-
-
-
-
-/*
-    UPLOAD BUTTON STATE
-*/
-
-
 function enableUpload(){
-
 
     if(uploading){
 
@@ -548,52 +381,33 @@ function enableUpload(){
 
     }
 
-
     uploadBtn.disabled =
         false;
-
 
     uploadBtn.classList.add(
         "active"
     );
 
-
 }
-
-
 
 function disableUpload(){
 
-
     uploadBtn.disabled =
         true;
-
 
     uploadBtn.classList.remove(
         "active"
     );
 
-
 }
-
-
-
-
-
-/*
-    KEY STATUS
-*/
-
 
 function showKeyStatus(
     text,
     valid
 ){
 
-
     keyStatus.textContent =
         text;
-
 
     keyStatus.className =
         "key-status show " +
@@ -603,45 +417,26 @@ function showKeyStatus(
                 : "invalid"
         );
 
-
 }
 
-
-
 function hideKeyStatus(){
-
 
     keyStatus.className =
         "key-status";
 
-
 }
-
-
-
-
-
-/*
-    SHOW / HIDE TOKEN
-*/
-
 
 showToken.addEventListener(
 "click",
 () => {
 
-
     tokenVisible =
         !tokenVisible;
 
-
-
     if(tokenVisible){
-
 
         tokenInput.type =
             "text";
-
 
         showToken.innerHTML = `
 
@@ -670,15 +465,12 @@ showToken.addEventListener(
 
         `;
 
-
     }
 
     else {
 
-
         tokenInput.type =
             "password";
-
 
         showToken.innerHTML = `
 
@@ -703,45 +495,25 @@ showToken.addEventListener(
 
         `;
 
-
     }
 
-
 });
-
-
-
-
-
-/*
-    UPLOAD
-*/
-
 
 uploadBtn.addEventListener(
 "click",
 async () => {
 
-
-    /*
-        FILE ERROR HAS
-        FIRST PRIORITY
-    */
-
+    
 
     if(!selectedFiles.length){
-
 
         showError(
             "Select file first!"
         );
 
-
         return;
 
     }
-
-
 
     const oversizedFile =
         selectedFiles.find(
@@ -749,83 +521,57 @@ async () => {
                 file.size > MAX_FILE_SIZE
         );
 
-
-
     if(oversizedFile){
-
 
         showError(
             "Files over 30 MB are not supported."
         );
 
-
         return;
 
     }
 
-
-
     if(!tokenValid){
-
 
         showKeyStatus(
             "Invalid key!",
             false
         );
 
-
         return;
 
     }
 
-
-
     hideError();
-
-
 
     const token =
         "github_pat_" +
         tokenInput.value.trim();
 
-
-
     uploading = true;
-
 
     disableUpload();
 
-
     uploadBtn.textContent =
         "Uploading...";
-
 
     uploadBtn.classList.add(
         "uploading"
     );
 
-
-
     progressSection.classList.add(
         "show"
     );
 
-
-
     resultList.innerHTML =
         "";
-
 
     resultSection.classList.remove(
         "show"
     );
 
-
-
     const uploadedFiles =
         [];
-
-
 
     for(
         let index = 0;
@@ -833,35 +579,26 @@ async () => {
         index++
     ){
 
-
         const file =
             selectedFiles[index];
 
-
-
         try {
-
 
             setProgress(
                 file.name,
                 5
             );
 
-
-
             const prepared =
                 await prepareFile(
                     file
                 );
-
-
 
             const progressAnimation =
     animateProgressTo99(
         file.name,
         file.size
     );
-
 
 const result =
     await uploadFile(
@@ -874,29 +611,20 @@ const result =
 
     );
 
-
 await progressAnimation;
 
-
-
             if(!result.success){
-
 
                 throw new Error(
                     `Upload failed: ${file.name}`
                 );
 
-
             }
-
-
 
             setProgress(
                 file.name,
                 100
             );
-
-
 
             uploadedFiles.push({
 
@@ -908,43 +636,33 @@ await progressAnimation;
 
             });
 
-
-
             await wait(300);
-
 
         }
 
         catch(error){
-
 
             console.error(
                 "[FireDrop] Upload failed:",
                 error
             );
 
-
             uploading = false;
-
 
             uploadBtn.textContent =
                 "Upload";
-
 
             uploadBtn.classList.remove(
                 "uploading"
             );
 
-
             progressSection.classList.remove(
                 "show"
             );
 
-
             showError(
                 "Upload failed. Try again."
             );
-
 
             if(tokenValid){
 
@@ -952,67 +670,36 @@ await progressAnimation;
 
             }
 
-
             return;
-
 
         }
 
-
     }
 
-
-
-   /*
-    COMPLETE
-*/
+   
 
 await wait(250);
 
-
-/*
-    Hide key status after
-    successful upload
-*/
-
 hideKeyStatus();
-
 
 uploadArea.classList.add(
     "finished"
 );
 
-
-
     await wait(300);
-
-
 
     showResults(
         uploadedFiles
     );
 
-
-
     uploading = false;
 
-
 });
-
-
-
-
-
-/*
-    PROGRESS
-*/
-
 
 function setProgress(
     fileName,
     percent
 ){
-
 
     const safePercent =
         Math.max(
@@ -1023,47 +710,28 @@ function setProgress(
             )
         );
 
-
-
     progressFile.textContent =
         fileName;
-
 
     progressPercent.textContent =
         `${safePercent}%`;
 
-
     progressBar.style.width =
         `${safePercent}%`;
 
-
 }
-
-
-
-
 
 function animateProgressTo99(
     fileName,
     fileSize
 ){
 
-
     return new Promise(resolve => {
 
-
-        /*
-            Чем больше файл,
-            тем дольше визуальная загрузка.
-
-            Минимум: 800ms
-            Максимум: 7000ms
-        */
-
+        
 
         const sizeInMB =
             fileSize / (1024 * 1024);
-
 
         const duration =
             Math.min(
@@ -1074,23 +742,16 @@ function animateProgressTo99(
                 )
             );
 
-
-
         const start =
             performance.now();
-
 
         const startPercent =
             5;
 
-
-
         function frame(now){
-
 
             const elapsed =
                 now - start;
-
 
             const progress =
                 Math.min(
@@ -1098,13 +759,7 @@ function animateProgressTo99(
                     1
                 );
 
-
-            /*
-                Ease-out:
-                сначала быстро,
-                ближе к 99% медленнее.
-            */
-
+            
 
             const eased =
                 1 - Math.pow(
@@ -1112,67 +767,47 @@ function animateProgressTo99(
                     3
                 );
 
-
             const percent =
                 startPercent +
                 (
                     99 - startPercent
                 ) * eased;
 
-
-
             setProgress(
                 fileName,
                 percent
             );
 
-
-
             if(progress < 1){
-
 
                 requestAnimationFrame(
                     frame
                 );
 
-
             }
 
             else {
-
 
                 setProgress(
                     fileName,
                     99
                 );
 
-
                 resolve();
-
 
             }
 
-
         }
-
-
 
         requestAnimationFrame(
             frame
         );
 
-
     });
-
 
 }
 
-
-
-
-
 function wait(ms){
-
 
     return new Promise(
         resolve =>
@@ -1182,91 +817,60 @@ function wait(ms){
             )
     );
 
-
 }
 
-
-
-
-
-/*
-    RESULTS
-*/
-
-
 function showResults(files){
-
 
     resultList.innerHTML =
         "";
 
-
-
     for(const file of files){
-
 
         const item =
             document.createElement(
                 "div"
             );
 
-
         item.className =
             "result-item";
-
-
 
         const name =
             document.createElement(
                 "div"
             );
 
-
         name.className =
             "result-name";
 
-
         name.textContent =
             file.name;
-
-
 
         const field =
             document.createElement(
                 "div"
             );
 
-
         field.className =
             "result-field";
-
-
 
         const link =
             document.createElement(
                 "div"
             );
 
-
         link.className =
             "result-link";
-
 
         link.textContent =
             file.url;
 
-
         link.title =
             file.url;
-
-
 
         const copyButton =
             createCopyButton(
                 file.url
             );
-
-
 
         const shareButton =
             createShareButton(
@@ -1274,66 +878,44 @@ function showResults(files){
                 file.url
             );
 
-
-
         field.append(
             link,
             copyButton,
             shareButton
         );
 
-
         item.append(
             name,
             field
         );
 
-
         resultList.append(
             item
         );
 
-
     }
-
-
 
     resultSection.classList.add(
         "show"
     );
 
-
 }
 
-
-
-
-
-/*
-    COPY BUTTON
-*/
-
-
 function createCopyButton(url){
-
 
     const button =
         document.createElement(
             "button"
         );
 
-
     button.type =
         "button";
-
 
     button.className =
         "result-action";
 
-
     button.title =
         "Copy link";
-
 
     button.innerHTML = `
 
@@ -1360,29 +942,22 @@ function createCopyButton(url){
 
     `;
 
-
-
     button.addEventListener(
     "click",
     async () => {
 
-
         try {
-
 
             await navigator.clipboard.writeText(
                 url
             );
 
-
             button.classList.add(
                 "copied"
             );
 
-
             button.title =
                 "Copied";
-
 
             setTimeout(
                 () => {
@@ -1391,7 +966,6 @@ function createCopyButton(url){
                         "copied"
                     );
 
-
                     button.title =
                         "Copy link";
 
@@ -1399,92 +973,62 @@ function createCopyButton(url){
                 1200
             );
 
-
         }
 
         catch(error){
 
-
-            /*
-                Fallback для file://
-                и старых браузеров.
-            */
-
+            
 
             const textarea =
                 document.createElement(
                     "textarea"
                 );
 
-
             textarea.value =
                 url;
-
 
             document.body.appendChild(
                 textarea
             );
 
-
             textarea.select();
-
 
             document.execCommand(
                 "copy"
             );
 
-
             textarea.remove();
-
 
             button.classList.add(
                 "copied"
             );
 
-
         }
-
 
     });
 
-
     return button;
 
-
 }
-
-
-
-
-
-/*
-    SHARE BUTTON
-*/
-
 
 function createShareButton(
     fileName,
     url
 ){
 
-
     const button =
         document.createElement(
             "button"
         );
 
-
     button.type =
         "button";
-
 
     button.className =
         "result-action";
 
-
     button.title =
         "Share";
-
 
     button.innerHTML = `
 
@@ -1525,18 +1069,13 @@ function createShareButton(
 
     `;
 
-
-
     button.addEventListener(
     "click",
     async () => {
 
-
         if(navigator.share){
 
-
             try {
-
 
                 await navigator.share({
 
@@ -1548,11 +1087,9 @@ function createShareButton(
 
                 });
 
-
             }
 
             catch(error){
-
 
                 if(
                     error.name !==
@@ -1565,24 +1102,19 @@ function createShareButton(
 
                 }
 
-
             }
-
 
         }
 
         else {
 
-
             await copyText(
                 url
             );
 
-
             button.classList.add(
                 "copied"
             );
-
 
             setTimeout(
                 () =>
@@ -1592,101 +1124,66 @@ function createShareButton(
                 1200
             );
 
-
         }
-
 
     });
 
-
     return button;
-
 
 }
 
-
-
-
-
 async function copyText(text){
-
 
     if(
         navigator.clipboard &&
         window.isSecureContext
     ){
 
-
         await navigator.clipboard.writeText(
             text
         );
 
-
         return;
 
     }
-
-
 
     const textarea =
         document.createElement(
             "textarea"
         );
 
-
     textarea.value =
         text;
-
 
     document.body.appendChild(
         textarea
     );
 
-
     textarea.select();
-
 
     document.execCommand(
         "copy"
     );
 
-
     textarea.remove();
-
 
 }
 
-
-
-
-
-/*
-    ERROR
-*/
-
-
 function showError(text){
-
 
     errorBox.textContent =
         text;
-
 
     errorBox.classList.add(
         "show"
     );
 
-
 }
 
-
-
 function hideError(){
-
 
     errorBox.classList.remove(
         "show"
     );
-
 
 }

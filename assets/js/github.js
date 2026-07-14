@@ -1,39 +1,18 @@
-/*
-    FIREDROP — GITHUB API
-
-    Отвечает за:
-    - проверку GitHub key
-    - проверку доступа к storage repository
-    - загрузку файлов
-*/
 
 
 const GITHUB_API =
     "https://api.github.com";
 
-
 const STORAGE_OWNER =
     "qw1zzr";
-
 
 const STORAGE_REPO =
     "firedrop-storage";
 
-
 const STORAGE_BRANCH =
     "main";
 
-
-
-
-
-/*
-    BASE REQUEST HEADERS
-*/
-
-
 function getGitHubHeaders(token){
-
 
     return {
 
@@ -48,28 +27,11 @@ function getGitHubHeaders(token){
 
     };
 
-
 }
-
-
-
-
-
-
-
-/*
-    CHECK TOKEN
-
-    Проверяет, существует ли key
-    и принимает ли его GitHub.
-*/
-
 
 async function checkToken(token){
 
-
     try {
-
 
         const response = await fetch(
 
@@ -80,7 +42,6 @@ async function checkToken(token){
                 method:
                     "GET",
 
-
                 headers:
                     getGitHubHeaders(token)
 
@@ -88,19 +49,7 @@ async function checkToken(token){
 
         );
 
-
-
         if(!response.ok){
-
-
-            console.warn(
-
-                "[FireDrop] Invalid GitHub key",
-
-                response.status
-
-            );
-
 
             return {
 
@@ -111,32 +60,10 @@ async function checkToken(token){
 
             };
 
-
         }
-
-
 
         const user =
             await response.json();
-
-
-
-        console.log(
-
-            "[FireDrop] GitHub key valid"
-
-        );
-
-
-        console.log(
-
-            "[FireDrop] Authenticated as:",
-
-            user.login
-
-        );
-
-
 
         return {
 
@@ -150,12 +77,9 @@ async function checkToken(token){
 
         };
 
-
     }
 
-
     catch(error){
-
 
         console.error(
 
@@ -164,7 +88,6 @@ async function checkToken(token){
             error
 
         );
-
 
         return {
 
@@ -177,33 +100,13 @@ async function checkToken(token){
 
         };
 
-
     }
-
 
 }
 
-
-
-
-
-
-
-/*
-    CHECK STORAGE ACCESS
-
-    Проверяет:
-    - существует ли repository
-    - видит ли его текущий key
-    - какие permissions GitHub вернул
-*/
-
-
 async function checkStorageAccess(token){
 
-
     try {
-
 
         const response = await fetch(
 
@@ -214,7 +117,6 @@ async function checkStorageAccess(token){
                 method:
                     "GET",
 
-
                 headers:
                     getGitHubHeaders(token)
 
@@ -222,10 +124,7 @@ async function checkStorageAccess(token){
 
         );
 
-
-
         if(!response.ok){
-
 
             console.error(
 
@@ -243,8 +142,6 @@ async function checkStorageAccess(token){
 
             );
 
-
-
             return {
 
                 accessible: false,
@@ -256,78 +153,28 @@ async function checkStorageAccess(token){
 
             };
 
-
         }
-
-
 
         const repository =
             await response.json();
 
-
-
         const permissions =
             repository.permissions || {};
 
-
-
-        /*
-            Для записи нас интересует
-            push permission.
-        */
-
+        
 
         const writable =
             permissions.push === true ||
             permissions.admin === true ||
             permissions.maintain === true;
 
-
-
-        console.log(
-
-            "[FireDrop] Storage repository accessible:",
-
-            `${STORAGE_OWNER}/${STORAGE_REPO}`
-
-        );
-
-
-        console.log(
-
-            "[FireDrop] Storage permissions:",
-
-            permissions
-
-        );
-
-
-
         if(writable){
 
-
-            console.log(
-
-                "[FireDrop] Storage write access: ALLOWED"
-
-            );
-
-
-        }
+            }
 
         else {
 
-
-            console.warn(
-
-                "[FireDrop] Storage write access: NOT CONFIRMED"
-
-            );
-
-
-        }
-
-
+            }
 
         return {
 
@@ -347,12 +194,9 @@ async function checkStorageAccess(token){
 
         };
 
-
     }
 
-
     catch(error){
-
 
         console.error(
 
@@ -361,7 +205,6 @@ async function checkStorageAccess(token){
             error
 
         );
-
 
         return {
 
@@ -376,30 +219,9 @@ async function checkStorageAccess(token){
 
         };
 
-
     }
 
-
 }
-
-
-
-
-
-
-
-/*
-    UPLOAD FILE
-
-    Получает:
-    - token
-    - path
-    - base64 content
-
-    uploader.js позже будет
-    подготавливать content.
-*/
-
 
 async function uploadFile(
 
@@ -411,9 +233,7 @@ async function uploadFile(
 
 ){
 
-
     try {
-
 
         const response = await fetch(
 
@@ -424,7 +244,6 @@ async function uploadFile(
                 method:
                     "PUT",
 
-
                 headers: {
 
                     ...getGitHubHeaders(token),
@@ -433,7 +252,6 @@ async function uploadFile(
                         "application/json"
 
                 },
-
 
                 body:
                     JSON.stringify({
@@ -453,15 +271,10 @@ async function uploadFile(
 
         );
 
-
-
         const data =
             await response.json();
 
-
-
         if(!response.ok){
-
 
             console.error(
 
@@ -470,7 +283,6 @@ async function uploadFile(
                 data
 
             );
-
 
             return {
 
@@ -484,20 +296,7 @@ async function uploadFile(
 
             };
 
-
         }
-
-
-
-        console.log(
-
-            "[FireDrop] Upload successful:",
-
-            data
-
-        );
-
-
 
         return {
 
@@ -514,12 +313,9 @@ async function uploadFile(
 
         };
 
-
     }
 
-
     catch(error){
-
 
         console.error(
 
@@ -528,7 +324,6 @@ async function uploadFile(
             error
 
         );
-
 
         return {
 
@@ -541,8 +336,6 @@ async function uploadFile(
 
         };
 
-
     }
-
 
 }

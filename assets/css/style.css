@@ -14,15 +14,11 @@
 
 }
 
-
-
 * {
 
     box-sizing: border-box;
 
 }
-
-
 
 html,
 body,
@@ -37,8 +33,6 @@ input {
         sans-serif;
 
 }
-
-
 
 body {
 
@@ -58,8 +52,6 @@ body {
 
 }
 
-
-
 .container {
 
     width: 100%;
@@ -69,8 +61,6 @@ body {
     padding: 20px;
 
 }
-
-
 
 .card {
 
@@ -84,8 +74,6 @@ body {
 
 }
 
-
-
 h1 {
 
     margin: 0;
@@ -98,8 +86,6 @@ h1 {
 
 }
 
-
-
 .subtitle {
 
     margin: 7px 0 28px;
@@ -109,11 +95,6 @@ h1 {
     font-size: 14px;
 
 }
-
-
-
-/* DROP ZONE */
-
 
 .drop-zone {
 
@@ -138,8 +119,6 @@ h1 {
 
 }
 
-
-
 .drop-zone:hover,
 .drop-zone.dragging {
 
@@ -148,8 +127,6 @@ h1 {
     background: #18181d;
 
 }
-
-
 
 .drop-icon {
 
@@ -175,8 +152,6 @@ h1 {
 
 }
 
-
-
 .drop-zone p {
 
     margin: 0;
@@ -184,8 +159,6 @@ h1 {
     font-size: 16px;
 
 }
-
-
 
 .drop-zone span {
 
@@ -197,11 +170,6 @@ h1 {
 
 }
 
-
-
-/* BUTTONS */
-
-
 button {
 
     border: none;
@@ -209,8 +177,6 @@ button {
     cursor: pointer;
 
 }
-
-
 
 .secondary-btn {
 
@@ -228,26 +194,17 @@ button {
 
 }
 
-
-
 .secondary-btn:hover {
 
     background: #303038;
 
 }
 
-
-
-/* FILE INFO */
-
-
 .file-section {
 
     margin-top: 18px;
 
 }
-
-
 
 .file-header {
 
@@ -259,8 +216,6 @@ button {
 
 }
 
-
-
 .small-label {
 
     color: #777781;
@@ -268,8 +223,6 @@ button {
     font-size: 12px;
 
 }
-
-
 
 #fileInfo {
 
@@ -289,11 +242,6 @@ button {
 
 }
 
-
-
-/* MULTI TOGGLE */
-
-
 .multi-box {
 
     display: flex;
@@ -308,8 +256,6 @@ button {
 
 }
 
-
-
 .multi-box span {
 
     font-size: 10px;
@@ -317,8 +263,6 @@ button {
     color: #777781;
 
 }
-
-
 
 .toggle {
 
@@ -339,8 +283,6 @@ button {
     transition: .25s;
 
 }
-
-
 
 .toggle-circle {
 
@@ -368,15 +310,11 @@ button {
 
 }
 
-
-
 .toggle.active {
 
     background: #3a3a42;
 
 }
-
-
 
 .toggle.active .toggle-circle {
 
@@ -386,18 +324,11 @@ button {
 
 }
 
-
-
-/* TOKEN */
-
-
 .input-group {
 
     margin-top: 25px;
 
 }
-
-
 
 .input-group label {
 
@@ -410,8 +341,6 @@ button {
     font-size: 14px;
 
 }
-
-
 
 .token-field {
 
@@ -431,8 +360,6 @@ button {
 
 }
 
-
-
 .token-content {
 
     flex: 1;
@@ -445,8 +372,6 @@ button {
 
 }
 
-
-
 .prefix {
 
     color: #777781;
@@ -456,8 +381,6 @@ button {
     font-size: 14px;
 
 }
-
-
 
 .token-content input {
 
@@ -485,8 +408,6 @@ button {
 
 }
 
-
-
 .eye-btn {
 
     width: 45px;
@@ -507,15 +428,11 @@ button {
 
 }
 
-
-
 .eye-btn:hover {
 
     color: #ffffff;
 
 }
-
-
 
 .eye-btn svg {
 
@@ -524,11 +441,6 @@ button {
     height: 19px;
 
 }
-
-
-
-/* ERRORS */
-
 
 .error-box {
 
@@ -569,8 +481,6 @@ button {
 
 }
 
-
-
 .error-box.show {
 
     height: 40px;
@@ -586,11 +496,6 @@ button {
     border-color: #4a292d;
 
 }
-
-
-
-/* KEY STATUS */
-
 
 .key-status {
 
@@ -619,8 +524,6 @@ button {
 
 }
 
-
-
 .key-status.show {
 
     height: 38px;
@@ -630,8 +533,6 @@ button {
     margin-top: 10px;
 
 }
-
-
 
 .key-status.invalid {
 
@@ -643,8 +544,6 @@ button {
 
 }
 
-
-
 .key-status.valid {
 
     background: #18241b;
@@ -654,11 +553,6 @@ button {
     color: #9fd3a5;
 
 }
-
-
-
-/* UPLOAD */
-
 
 .upload-area {
 
@@ -671,8 +565,6 @@ button {
     max-height: 160px;
 
 }
-
-
 
 .upload-area.finished {
 
@@ -689,8 +581,6 @@ button {
     overflow: hidden;
 
 }
-
-
 
 .upload-btn {
 
@@ -715,8 +605,6 @@ button {
 
 }
 
-
-
 .upload-btn:disabled {
 
     opacity: .35;
@@ -724,8 +612,6 @@ button {
     cursor: not-allowed;
 
 }
-
-
 
 .upload-btn.active {
 
@@ -735,8 +621,6 @@ button {
         0 0 18px rgba(255,255,255,.35);
 
 }
-
-
 
 .upload-btn.uploading {
 
@@ -749,11 +633,6 @@ button {
     cursor: wait;
 
 }
-
-
-
-/* PROGRESS */
-
 
 .progress-section {
 
@@ -773,8 +652,6 @@ button {
 
 }
 
-
-
 .progress-section.show {
 
     max-height: 80px;
@@ -786,8 +663,6 @@ button {
     transform: translateY(0);
 
 }
-
-
 
 .progress-header {
 
@@ -807,8 +682,6 @@ button {
 
 }
 
-
-
 .progress-file {
 
     overflow: hidden;
@@ -819,8 +692,6 @@ button {
 
 }
 
-
-
 .progress-percent {
 
     flex-shrink: 0;
@@ -828,8 +699,6 @@ button {
     color: #d7d7dc;
 
 }
-
-
 
 .progress-track {
 
@@ -845,8 +714,6 @@ button {
 
 }
 
-
-
 .progress-bar {
 
     width: 0%;
@@ -860,11 +727,6 @@ button {
     transition: width .25s ease;
 
 }
-
-
-
-/* RESULTS */
-
 
 .result-section {
 
@@ -884,8 +746,6 @@ button {
 
 }
 
-
-
 .result-section.show {
 
     max-height: 1000px;
@@ -897,8 +757,6 @@ button {
     margin-top: 22px;
 
 }
-
-
 
 .success-title {
 
@@ -912,23 +770,17 @@ button {
 
 }
 
-
-
 .result-item {
 
     margin-top: 14px;
 
 }
 
-
-
 .result-item:first-child {
 
     margin-top: 0;
 
 }
-
-
 
 .result-name {
 
@@ -945,8 +797,6 @@ button {
     white-space: nowrap;
 
 }
-
-
 
 .result-field {
 
@@ -965,8 +815,6 @@ button {
     overflow: hidden;
 
 }
-
-
 
 .result-link {
 
@@ -992,8 +840,6 @@ button {
 
 }
 
-
-
 .result-action {
 
     width: 42px;
@@ -1018,8 +864,6 @@ button {
 
 }
 
-
-
 .result-action:hover {
 
     color: #ffffff;
@@ -1027,8 +871,6 @@ button {
     background: #1b1b20;
 
 }
-
-
 
 .result-action svg {
 
@@ -1038,18 +880,11 @@ button {
 
 }
 
-
-
 .result-action.copied {
 
     color: #9fd3a5;
 
 }
-
-
-
-/* CREATOR */
-
 
 .creator {
 
@@ -1068,8 +903,6 @@ button {
     user-select: none;
 
 }
-
-/* RESULT DIVIDER */
 
 .result-section.show {
 
