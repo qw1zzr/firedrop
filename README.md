@@ -1,2 +1,18 @@
-# firedrop
-idk what is this but in process
+# Firedrop
+
+Firedrop is a modern file sharing service built for fast, simple and secure transfers.
+
+Upload your files, share links instantly, and keep control over your data with a clean and lightweight experience.
+
+## Features
+
+- Fast file uploads
+- Simple sharing links
+- Clean and minimal interface
+- Secure file handling
+
+## Access
+
+Firedrop is currently available through invitation tokens only.  
+Public access and open registration will be available soon.
+
